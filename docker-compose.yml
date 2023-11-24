@@ -9,6 +9,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
     environment:
       - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
       - es_data:/usr/share/elasticsearch/data
 
@@ -23,6 +24,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./dashboards:/etc/grafana/provisioning/dashboards  # Custom dashboards directory
+    mem_limit: 128m      
 
 volumes:
   es_data:
