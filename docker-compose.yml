@@ -12,6 +12,8 @@ services:
       - ES_JAVA_OPTS=-Xms384m -Xmx384m
     volumes:
       - es_data:/usr/share/elasticsearch/data
+    mem_limit: 512m
+    cpus: 0.25
 
   grafana:
     image: grafana/grafana:7.3.1
@@ -25,7 +27,7 @@ services:
       - grafana_data:/var/lib/grafana
       - ./dashboards:/etc/grafana/provisioning/dashboards  # Custom dashboards directory
     mem_limit: 128m      
-
+    cpus: 0.25
 volumes:
   es_data:
   grafana_data:
