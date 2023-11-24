@@ -1,0 +1,53 @@
+{
+    "dashboard": {
+      "id": null,
+      "uid": "example-dashboard",
+      "title": "Example Dashboard",
+      "timezone": "browser",
+      "panels": [
+        {
+          "id": 1,
+          "gridPos": {
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 8
+          },
+          "title": "Example Panel",
+          "type": "graph",
+          "targets": [
+            {
+              "refId": "A",
+              "query": "SELECT count(*) FROM your_index"
+            }
+          ],
+          "legend": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short"
+            },
+            {
+              "format": "short",
+              "logBase": 1
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
+        }
+      ],
+      "schemaVersion": 27,
+      "version": 1,
+      "links": [],
+      "gnetId": null,
+      "annotations": {
+        "list": []
+      },
+      "refresh": "10s"
+    },
+    "folderId": null,
+    "overwrite": false
+  }
+  

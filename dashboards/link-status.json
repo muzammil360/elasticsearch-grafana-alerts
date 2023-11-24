@@ -1,0 +1,2129 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 2,
+  "id": 6,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 13,
+      "panels": [],
+      "title": "Link-status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "title": "",
+              "url": "http://10.168.101.38:3000/d/zzK1lhISz/dev_meraki_link_status_v1-copy?orgId=1&var-NetworkID=All&var-Status=failed"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 24,
+      "interval": "2m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "status.keyword",
+              "id": "2",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "0"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "All",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": false,
+              "source.status.keyword": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "source.status.keyword": ""
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "title": "",
+              "url": "http://10.168.101.38:3000/d/zzK1lhISz/dev_meraki_link_status_v1-copy?orgId=1&var-NetworkID=All&var-Status=active"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 7,
+      "interval": "2m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "status.keyword",
+              "id": "2",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "status: active",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "Active",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": false,
+              "source.status.keyword": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "source.status.keyword": ""
+            }
+          }
+        },
+        {
+          "disabled": true,
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "not connected*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        },
+        {
+          "disabled": true,
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "ready*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "disabled": true,
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "connecting*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "disabled": true,
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "failed*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "title": "",
+              "url": "http://10.168.101.38:3000/d/zzK1lhISz/dev_meraki_link_status_v1-copy?orgId=1&var-NetworkID=All&var-Status=ready"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
+      "id": 16,
+      "interval": "2m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "status.keyword",
+              "id": "2",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "Ready",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": false,
+              "source.status.keyword": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "source.status.keyword": ""
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "not connected*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "active*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "connecting*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "failed*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "title": "",
+              "url": "http://10.168.101.38:3000/d/zzK1lhISz/dev_meraki_link_status_v1-copy?orgId=1&var-NetworkID=All&var-Status=connecting"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
+      "id": 20,
+      "interval": "2m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "status.keyword",
+              "id": "2",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "0"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "Connecting",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": false,
+              "source.status.keyword": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "source.status.keyword": ""
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "not connected*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "active*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "ready*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "failed*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "title": "",
+              "url": "http://10.168.101.38:3000/d/zzK1lhISz/dev_meraki_link_status_v1-copy?orgId=1&var-NetworkID=All&var-Status=not+connected"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "id": 17,
+      "interval": "2m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "status.keyword",
+              "id": "2",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "Not Connected",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": false,
+              "source.status.keyword": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "source.status.keyword": ""
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "ready*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "active*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "connecting*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "failed*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "title": "",
+              "url": "http://10.168.101.38:3000/d/zzK1lhISz/dev_meraki_link_status_v1-copy?orgId=1&var-NetworkID=All&var-Status=failed"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "id": 19,
+      "interval": "2m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "status.keyword",
+              "id": "2",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "Failed",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": false,
+              "source.status.keyword": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "source.status.keyword": ""
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "ready*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "active*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "not connected*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "connecting*"
+                  }
+                },
+                "fieldName": "status.keyword"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "title": "",
+              "url": "http://10.168.101.38:3000/d/zzK1lhISz/dev_meraki_link_status_v1-copy?orgId=1&var-NetworkID=All&var-Status=failed"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 0,
+        "y": 8
+      },
+      "id": 22,
+      "interval": "2m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "status.keyword",
+              "id": "2",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "status: failed AND (networkId.keyword:$NetworkID) AND (status:$Status)",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "Failed",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": false,
+              "source.status.keyword": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "source.status.keyword": ""
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 14,
+      "panels": [],
+      "title": "Link-status-overview",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "active": {
+                  "color": "green",
+                  "index": 0
+                },
+                "failed": {
+                  "color": "semi-dark-red",
+                  "index": 2
+                },
+                "not connected": {
+                  "color": "semi-dark-blue",
+                  "index": 3
+                },
+                "ready": {
+                  "color": "semi-dark-yellow",
+                  "index": 1
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source Role Availability "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 178
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source Enabled Availability "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 201
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 196
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source Serial"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 162
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Network ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 193
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Uplinks"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": []
+              },
+              {
+                "id": "custom.width",
+                "value": 561
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Model"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Serial"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 289
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Enabled Availability "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 162
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Role Availability "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 139
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last Reported at"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 206
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source.status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 241
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "active": {
+                        "color": "semi-dark-green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Interface"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 102
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 121
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "active": {
+                        "color": "green",
+                        "index": 0
+                      },
+                      "connecting": {
+                        "color": "light-purple",
+                        "index": 2
+                      },
+                      "failed": {
+                        "color": "semi-dark-red",
+                        "index": 3
+                      },
+                      "not connected": {
+                        "color": "light-yellow",
+                        "index": 4
+                      },
+                      "ready": {
+                        "color": "light-blue",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 117
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 3,
+      "interval": "2m",
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "settings": {
+                "limit": "10000"
+              },
+              "type": "logs"
+            }
+          ],
+          "query": "(networkId.keyword:$NetworkID) AND (status.keyword:$Status)",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "Dynamic-Alarms",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "@timestamp": true,
+              "MSG": true,
+              "_id": true,
+              "_index": true,
+              "_source": true,
+              "_type": true,
+              "author": true,
+              "highlight": true,
+              "index": true,
+              "serial": true,
+              "sort": true,
+              "source.highAvailability.enabled": false,
+              "source.lastReportedAt": false,
+              "source.model": true,
+              "source.timestamp": true,
+              "text": true,
+              "time": false,
+              "timestamp": true
+            },
+            "indexByName": {
+              "_id": 0,
+              "_index": 1,
+              "_source": 6,
+              "_type": 3,
+              "highlight": 2,
+              "interface": 9,
+              "ip": 10,
+              "lastReportedAt": 12,
+              "networkId": 7,
+              "serial": 8,
+              "sort": 4,
+              "status": 11,
+              "timestamp": 5
+            },
+            "renameByName": {
+              "@baseType": "Base_Type",
+              "@timestamp": "Timestamp",
+              "@type": "Type",
+              "@version": "Version",
+              "_id": "ID",
+              "_index": "Index",
+              "_source": "Source",
+              "_type": "Type",
+              "author": "Author",
+              "facility_severity": "Facility_Severity",
+              "hasStarted": "Has_Started",
+              "highlight": "Highlight",
+              "host": "Host",
+              "href": "Href",
+              "id": "ID1",
+              "ident": "Identification",
+              "index": "Index",
+              "interface": "Interface",
+              "ip": "IP",
+              "isServiceEnabled": "Is_Service_Enabled",
+              "isStateful": "Is_Stateful",
+              "lastReportedAt": "Last reported at",
+              "message": "Message",
+              "name": "Name",
+              "networkId": "Network ID",
+              "operationState": "Operation_State",
+              "operationalState": "Operational_State",
+              "pid": "Pid",
+              "reason": "Reason",
+              "serial": "Serial",
+              "serviceCharacteristic_@baseType": "Service_Characteristic_BaseType",
+              "serviceCharacteristic_@type": "Service_Characteristic_Type",
+              "serviceCharacteristic_ccDeviceDescription": "Service_Characteristic_DeviceDescription",
+              "serviceCharacteristic_clarifyProductId": "Service_Characteristic_ClarifyProductId",
+              "serviceCharacteristic_customerId": "Service_Characteristic_CustomerId",
+              "serviceCharacteristic_lsId": "Service_Characteristic_lsId",
+              "serviceCharacteristic_mspAction": "Service_Characteristic_mspAction",
+              "serviceCharacteristic_onuSerialNumber": "Service_Characteristic_onuSerialNumber",
+              "serviceCharacteristic_physicalDevice_entityType": "Service_Characteristic_physicalDevice_entityType",
+              "serviceCharacteristic_physicalDevice_hardware_MAC ADDRESS1": "Service_Characteristic_physicalDevice_hardware_MAC ADDRESS1",
+              "serviceCharacteristic_physicalDevice_hardware_MAC ADDRESS2": "Service_Characteristic_physicalDevice_hardware_MAC ADDRESS2",
+              "serviceCharacteristic_physicalDevice_serialNumber": "Service_Characteristic_physicalDevice_serialNumber",
+              "serviceCharacteristic_provisioningSystem": "Service_Characteristic_provisioningSystem",
+              "serviceCharacteristic_value": "Service_Characteristic_value",
+              "serviceCharacteristic_valueType": "Service_Characteristic_valueType",
+              "serviceCharacteristic_value_entityType": "Service_Characteristic_value_entityType",
+              "serviceCharacteristic_value_serialNumber": "Service_Characteristic_value_serialNumber",
+              "serviceDate": "Service_Date",
+              "serviceOrder_@baseType": "Service_Order_@baseType",
+              "serviceOrder_@type": "Service_Order_@type",
+              "serviceOrder_id": "Service_Order_id",
+              "serviceOrder_serviceOrderItemId": "Service_Order_serviceOrderItemId",
+              "serviceSpecification_href": "Service_Specification_href",
+              "serviceSpecification_id": "Service_Specification_id",
+              "serviceSpecification_name": "Service_Specification_name",
+              "serviceSpecification_version": "Service_Specification_version",
+              "sort": "Sort",
+              "source.highAvailability.enabled": "Enabled Availability ",
+              "source.highAvailability.role": "Role Availability ",
+              "source.interface": "Interface",
+              "source.ip": "IP",
+              "source.lastReportedAt": "Last Reported at",
+              "source.model": "Model",
+              "source.networkId": "Network ID",
+              "source.serial": "Serial",
+              "source.status": "Status",
+              "source.uplinks": "Uplinks",
+              "startDate": "Start_Date",
+              "startMode": "Start_Mode",
+              "state": "State",
+              "status": "Status",
+              "text": "Text",
+              "time": "Timestamp",
+              "timestamp": "Timestamp"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P6wSK9VIz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "active": {
+                  "color": "green",
+                  "index": 0
+                },
+                "failed": {
+                  "color": "semi-dark-red",
+                  "index": 2
+                },
+                "not connected": {
+                  "color": "semi-dark-blue",
+                  "index": 3
+                },
+                "ready": {
+                  "color": "semi-dark-yellow",
+                  "index": 1
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source Role Availability "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 178
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source Enabled Availability "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 201
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 196
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source Serial"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 162
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Network ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 193
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Uplinks"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": []
+              },
+              {
+                "id": "custom.width",
+                "value": 561
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Model"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Serial"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 289
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Enabled Availability "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 162
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Role Availability "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 139
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last Reported at"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 206
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source.status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 241
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "active": {
+                        "color": "semi-dark-green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Interface"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 102
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 104
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "active": {
+                        "color": "green",
+                        "index": 0
+                      },
+                      "connecting": {
+                        "color": "light-purple",
+                        "index": 2
+                      },
+                      "failed": {
+                        "color": "semi-dark-red",
+                        "index": 3
+                      },
+                      "not connected": {
+                        "color": "light-yellow",
+                        "index": 4
+                      },
+                      "ready": {
+                        "color": "light-blue",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 130
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 23,
+      "interval": "5m",
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P6wSK9VIz"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "settings": {
+                "limit": "10000"
+              },
+              "type": "logs"
+            }
+          ],
+          "query": "status.keyword: failed",
+          "refId": "A",
+          "timeField": "timestamp"
+        }
+      ],
+      "title": "Dynamic-Alarms",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "@timestamp": true,
+              "MSG": true,
+              "_id": true,
+              "_index": true,
+              "_source": true,
+              "_type": true,
+              "author": true,
+              "highlight": true,
+              "index": true,
+              "serial": true,
+              "sort": true,
+              "source.highAvailability.enabled": false,
+              "source.lastReportedAt": false,
+              "source.model": true,
+              "source.timestamp": true,
+              "text": true,
+              "time": false,
+              "timestamp": true
+            },
+            "indexByName": {
+              "_id": 0,
+              "_index": 1,
+              "_source": 6,
+              "_type": 3,
+              "highlight": 2,
+              "interface": 9,
+              "ip": 10,
+              "lastReportedAt": 12,
+              "networkId": 7,
+              "serial": 8,
+              "sort": 4,
+              "status": 11,
+              "timestamp": 5
+            },
+            "renameByName": {
+              "@baseType": "Base_Type",
+              "@timestamp": "Timestamp",
+              "@type": "Type",
+              "@version": "Version",
+              "_id": "ID",
+              "_index": "Index",
+              "_source": "Source",
+              "_type": "Type",
+              "author": "Author",
+              "facility_severity": "Facility_Severity",
+              "hasStarted": "Has_Started",
+              "highlight": "Highlight",
+              "host": "Host",
+              "href": "Href",
+              "id": "ID1",
+              "ident": "Identification",
+              "index": "Index",
+              "interface": "Interface",
+              "ip": "IP",
+              "isServiceEnabled": "Is_Service_Enabled",
+              "isStateful": "Is_Stateful",
+              "lastReportedAt": "Last reported at",
+              "message": "Message",
+              "name": "Name",
+              "networkId": "Network ID",
+              "operationState": "Operation_State",
+              "operationalState": "Operational_State",
+              "pid": "Pid",
+              "reason": "Reason",
+              "serial": "Serial",
+              "serviceCharacteristic_@baseType": "Service_Characteristic_BaseType",
+              "serviceCharacteristic_@type": "Service_Characteristic_Type",
+              "serviceCharacteristic_ccDeviceDescription": "Service_Characteristic_DeviceDescription",
+              "serviceCharacteristic_clarifyProductId": "Service_Characteristic_ClarifyProductId",
+              "serviceCharacteristic_customerId": "Service_Characteristic_CustomerId",
+              "serviceCharacteristic_lsId": "Service_Characteristic_lsId",
+              "serviceCharacteristic_mspAction": "Service_Characteristic_mspAction",
+              "serviceCharacteristic_onuSerialNumber": "Service_Characteristic_onuSerialNumber",
+              "serviceCharacteristic_physicalDevice_entityType": "Service_Characteristic_physicalDevice_entityType",
+              "serviceCharacteristic_physicalDevice_hardware_MAC ADDRESS1": "Service_Characteristic_physicalDevice_hardware_MAC ADDRESS1",
+              "serviceCharacteristic_physicalDevice_hardware_MAC ADDRESS2": "Service_Characteristic_physicalDevice_hardware_MAC ADDRESS2",
+              "serviceCharacteristic_physicalDevice_serialNumber": "Service_Characteristic_physicalDevice_serialNumber",
+              "serviceCharacteristic_provisioningSystem": "Service_Characteristic_provisioningSystem",
+              "serviceCharacteristic_value": "Service_Characteristic_value",
+              "serviceCharacteristic_valueType": "Service_Characteristic_valueType",
+              "serviceCharacteristic_value_entityType": "Service_Characteristic_value_entityType",
+              "serviceCharacteristic_value_serialNumber": "Service_Characteristic_value_serialNumber",
+              "serviceDate": "Service_Date",
+              "serviceOrder_@baseType": "Service_Order_@baseType",
+              "serviceOrder_@type": "Service_Order_@type",
+              "serviceOrder_id": "Service_Order_id",
+              "serviceOrder_serviceOrderItemId": "Service_Order_serviceOrderItemId",
+              "serviceSpecification_href": "Service_Specification_href",
+              "serviceSpecification_id": "Service_Specification_id",
+              "serviceSpecification_name": "Service_Specification_name",
+              "serviceSpecification_version": "Service_Specification_version",
+              "sort": "Sort",
+              "source.highAvailability.enabled": "Enabled Availability ",
+              "source.highAvailability.role": "Role Availability ",
+              "source.interface": "Interface",
+              "source.ip": "IP",
+              "source.lastReportedAt": "Last Reported at",
+              "source.model": "Model",
+              "source.networkId": "Network ID",
+              "source.serial": "Serial",
+              "source.status": "Status",
+              "source.uplinks": "Uplinks",
+              "startDate": "Start_Date",
+              "startMode": "Start_Mode",
+              "state": "State",
+              "status": "Status",
+              "text": "Text",
+              "time": "Timestamp",
+              "timestamp": "Timestamp"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "P6wSK9VIz"
+        },
+        "definition": "{\"find\": \"terms\", \"field\": \"networkId.keyword\"}",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "NetworkID",
+        "options": [],
+        "query": "{\"find\": \"terms\", \"field\": \"networkId.keyword\"}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "P6wSK9VIz"
+        },
+        "definition": "{\"find\": \"terms\", \"field\": \"interface.keyword\", \"query\":\"networkId.keyword:$NetworkID\"}",
+        "hide": 2,
+        "includeAll": true,
+        "label": "",
+        "multi": true,
+        "name": "Interface",
+        "options": [],
+        "query": "{\"find\": \"terms\", \"field\": \"interface.keyword\", \"query\":\"networkId.keyword:$NetworkID\"}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "P6wSK9VIz"
+        },
+        "definition": "{\"find\": \"terms\", \"field\": \"status.keyword\", \"query\":\"networkId.keyword:$NetworkID\" }",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Status",
+        "multi": true,
+        "name": "Status",
+        "options": [],
+        "query": "{\"find\": \"terms\", \"field\": \"status.keyword\", \"query\":\"networkId.keyword:$NetworkID\" }",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "2m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "Asia/Kolkata",
+  "title": "Dev_Meraki_Link_Status_v1-Copy",
+  "uid": "zzK1lhISz",
+  "version": 15,
+  "weekStart": ""
+}

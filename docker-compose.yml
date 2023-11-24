@@ -1,0 +1,29 @@
+# run grafana
+# run elastic search
+# add dummy data to elastic search
+
+version: '3'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  grafana:
+    image: grafana/grafana:7.3.1
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Change this password
+    ports:
+      - "3000:3000"
+    depends_on:
+      - elasticsearch
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./dashboards:/etc/grafana/provisioning/dashboards  # Custom dashboards directory
+
+volumes:
+  es_data:
+  grafana_data:
