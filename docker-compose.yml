@@ -14,7 +14,7 @@ services:
       - "9200:9200"      
     volumes:
       - es_data:/usr/share/elasticsearch/data
-    mem_limit: 1024m
+    # mem_limit: 1024m
     cpus: 0.5
 
   grafana:
