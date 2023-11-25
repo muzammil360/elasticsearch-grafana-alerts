@@ -16,6 +16,10 @@ services:
       - es_data:/usr/share/elasticsearch/data
     # mem_limit: 1024m
     cpus: 0.5
+  elasticsearch-head:
+    image: mobz/elasticsearch-head:5-alpine
+    ports:
+      - "9100:9100"
 
   grafana:
     image: grafana/grafana:7.3.1
