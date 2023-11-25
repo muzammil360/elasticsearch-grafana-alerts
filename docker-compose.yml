@@ -28,7 +28,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin  # Change this password
       - GF_SMTP_ENABLED=true
-      - GF_SMTP_HOST=smtp.gmail.com
+      - GF_SMTP_HOST=smtp.gmail.com:587
       - GF_SMTP_PORT=587
       - GF_SMTP_USER=muzammil360@gmail.com
       - GF_SMTP_PASSWORD=your_gmail_password
