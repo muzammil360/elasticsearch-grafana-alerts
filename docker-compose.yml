@@ -24,7 +24,7 @@ services:
       - "9100:9100"
 
   grafana:
-    image: grafana/grafana:7.3.1
+    image: grafana/grafana:10.2.2
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin  # Change this password
       - GF_SMTP_ENABLED=true
