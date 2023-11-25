@@ -10,6 +10,8 @@ services:
     environment:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms1536m -Xmx1536m
+    ports:
+      - "9200:9200"      
     volumes:
       - es_data:/usr/share/elasticsearch/data
     mem_limit: 1536m
